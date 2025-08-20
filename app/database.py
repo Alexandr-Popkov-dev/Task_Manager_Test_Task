@@ -1,8 +1,8 @@
-from app.config import user, password, db_name, host
+from config import USER, PASSWORD, DB_NAME, HOST
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-SQLALCHEMY_DATABASE_URL = f'postgresql://{user}:{password}@{host}/{db_name}'
+SQLALCHEMY_DATABASE_URL = f'postgresql://{USER}:{PASSWORD}@{HOST}/{DB_NAME}'
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
