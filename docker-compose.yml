@@ -17,8 +17,7 @@ services:
     depends_on:
       - postgres
     command: >
-      sh -c "python app/tm_app.py"
-      
+      sh -c "PYTHONPATH=. python app/tm_app.py"
 
   postgres:
     hostname: postgres
