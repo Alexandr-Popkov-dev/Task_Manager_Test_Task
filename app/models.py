@@ -8,10 +8,12 @@ from sqlalchemy.dialects.postgresql import UUID
 
 Base = declarative_base()
 
+
 class TaskStatus(Enum):
     PENDING = 'Создано'
     IN_PROGRESS = 'В работе'
     DONE = 'Выполнено'
+
 
 task_status_enum = PgEnum(
     TaskStatus,
@@ -19,6 +21,7 @@ task_status_enum = PgEnum(
     create_type=True,
     values_callable=lambda obj: [e.value for e in obj]
 )
+
 
 class Task(Base):
     __tablename__ = "tasks"
