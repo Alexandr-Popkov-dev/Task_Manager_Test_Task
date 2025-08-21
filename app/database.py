@@ -1,4 +1,4 @@
-from config import USER, PASSWORD, DB_NAME, HOST
+from app.config import USER, PASSWORD, DB_NAME, HOST
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 

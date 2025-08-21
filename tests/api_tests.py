@@ -7,8 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
 from app import models
 from app.config import USER, PASSWORD, HOST
-from app.tm_app import app, get_db
-
+from app.tm_app import application, get_db
 
 SQLALCHEMY_DATABASE_URL = f'postgresql://{USER}:{PASSWORD}@{HOST}/test'
 
@@ -50,10 +49,10 @@ def client(db_session) -> Generator:
         finally:
             pass  # Не закрываем сессию здесь, так как это делается в фикстуре db_session
 
-    app.dependency_overrides[get_db] = override_get_db
-    with TestClient(app) as c:
+    application.dependency_overrides[get_db] = override_get_db
+    with TestClient(application) as c:
         yield c
-    app.dependency_overrides.clear()
+    application.dependency_overrides.clear()
 
 
 @pytest.fixture()

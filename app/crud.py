@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-import models
+from app import models
 from typing import Optional
 import uuid
+
 
 def create_task(db: Session, task: dict):
     if 'status' in task and isinstance(task['status'], str):
@@ -13,6 +14,7 @@ def create_task(db: Session, task: dict):
     db.refresh(db_task)
     return db_task
 
+
 def get_tasks(db: Session, status: Optional[str] = None, skip: int = 0, limit: int = 100):
     query = db.query(models.Task)
 
@@ -22,8 +24,10 @@ def get_tasks(db: Session, status: Optional[str] = None, skip: int = 0, limit: i
 
     return query.offset(skip).limit(limit).all()
 
+
 def get_task(db: Session, task_id: uuid.UUID):
     return db.query(models.Task).filter(models.Task.id == task_id).first()
+
 
 def update_task(db: Session, db_task: models.Task, update_data: dict):
     for key, value in update_data.items():
@@ -33,6 +37,7 @@ def update_task(db: Session, db_task: models.Task, update_data: dict):
     db.commit()
     db.refresh(db_task)
     return db_task
+
 
 def delete_task(db: Session, task_id: uuid.UUID):
     task = get_task(db, task_id)
