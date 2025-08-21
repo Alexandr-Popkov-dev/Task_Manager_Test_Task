@@ -4,4 +4,5 @@ fastapi~=0.116.1
 pydantic~=2.8.2
 psycopg2~=2.9.10
 starlette~=0.47.2
-alembic~=1.16.4
+pytest~=8.3.3
+httpx==0.28.1
