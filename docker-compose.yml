@@ -8,10 +8,10 @@ services:
     environment:
       DEBUG: False
       POSTGRES_HOST: "postgres"
-      POSTGRES_DB: "Task_Manager_DB"  #Введите название базы данных postgres
+      POSTGRES_DB: "Task_Manager_DB"  #Название базы данных postgres
       DATABASE_PORT: "5432"
-      POSTGRES_USER: "postgres"  #Введите название пользователя базы данных
-      POSTGRES_PASSWORD: "rtf558Ur" #Введите пароль пользователя базы данных
+      POSTGRES_USER: "postgres"  #Название пользователя базы данных
+      POSTGRES_PASSWORD: "rtf558Ur" #Пароль пользователя базы данных
     ports:
       - "8000:8000"
     depends_on:
@@ -26,9 +26,9 @@ services:
     volumes:
       - db-data:/var/lib/postgresql
     environment:
-      POSTGRES_DB: "Task_Manager_DB"  #Введите название базы данных postgres
-      POSTGRES_USER: "postgres"  #Введите название пользователя базы данных
-      POSTGRES_PASSWORD: "rtf558Ur" #Введите пароль пользователя базы данных
+      POSTGRES_DB: "Task_Manager_DB"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "rtf558Ur"
     ports:
       - "5432:5432"
 
