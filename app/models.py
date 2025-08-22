@@ -23,6 +23,7 @@ task_status_enum = PgEnum(
 )
 
 
+# Определение полей таблицы Task
 class Task(Base):
     __tablename__ = "tasks"
 

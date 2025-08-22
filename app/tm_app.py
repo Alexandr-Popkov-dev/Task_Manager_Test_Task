@@ -20,12 +20,19 @@ def get_db():
         db.close()
 
 
-@application.post("/tasks/", response_model=TaskSchema)
+#
+@application.post("/tasks/", response_model=TaskSchema,
+                  summary="Добавление Задачи",
+                  description="При отправке запроса в"
+                              "базу данных добавляется новая задача")
 def create_new_task(task: TaskCreate, db: Session = Depends(get_db)):
-    return create_task(db, task.model_dump())  # Используем model_dump() вместо dict()
+    return create_task(db, task.model_dump())
 
 
-@application.get("/tasks/", response_model=List[TaskSchema])
+@application.get("/tasks/", response_model=List[TaskSchema],
+                 summary="Получение продуктов",
+                 description="При запросе выводятся все "
+                             "задачи, с выбранным статусом содержащиеся в базе данных")
 def read_tasks(
         status: Optional[str] = None,
         skip: int = 0,
@@ -35,7 +42,9 @@ def read_tasks(
     return get_tasks(db, status=status, skip=skip, limit=limit)
 
 
-@application.get("/tasks/{task_id}", response_model=TaskSchema)
+@application.get("/tasks/{task_id}", response_model=TaskSchema,
+                 summary="Получение задачи по его uuid",
+                 description="При отправке запросе выводится запрашиваемая задача")
 def read_task(task_id: uuid.UUID, db: Session = Depends(get_db)):
     db_task = get_task(db, task_id)
     if db_task is None:
@@ -43,7 +52,10 @@ def read_task(task_id: uuid.UUID, db: Session = Depends(get_db)):
     return db_task
 
 
-@application.put("/tasks/{task_id}", response_model=TaskSchema)
+@application.put("/tasks/{task_id}", response_model=TaskSchema,
+                 summary="Изменение информации о задаче",
+                 description="При отправке запросе в "
+                             "базе данных изменяется информация о задаче")
 def update_existing_task(
         task_id: uuid.UUID,
         task: TaskUpdate,
@@ -55,7 +67,10 @@ def update_existing_task(
     return update_task(db, db_task, task.model_dump(exclude_unset=True))  # Используем model_dump()
 
 
-@application.delete("/tasks/{task_id}")
+@application.delete("/tasks/{task_id}",
+                    summary="Удаление задачи по uuid",
+                    description="При отправке запросе удаляются"
+                                "данные о задаче")
 def delete_existing_task(task_id: uuid.UUID, db: Session = Depends(get_db)):
     if not delete_task(db, task_id):
         raise HTTPException(status_code=404, detail="Task not found")
